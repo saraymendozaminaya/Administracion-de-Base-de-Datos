@@ -1,0 +1,81 @@
+Table DIRECCION {
+  ID_DIRECCION char(6) [pk]
+  DEPARTAMENTO varchar(50)
+  NOMBRE_DISTRITO varchar(20)
+  PROVINCIA varchar(20)
+  DETALLE_DIRECCION varchar(100)
+  REFERENCIA varchar(100)
+}
+
+Table CLIENTE {
+  ID_CLIENTE char(6) [pk] 
+  NOMBRES varchar(100)
+  APELLIDOS varchar(100)
+  FONO char(9)
+  EMAIL varchar(50)
+}
+
+Table CLIENTE_DIRECCION {
+  ID_CLIENTE char(6) [ref: > CLIENTE.ID_CLIENTE]
+  ID_DIRECCION char(6) [ref: > DIRECCION.ID_DIRECCION]
+  }
+
+Table CATEGORIAS {
+  COD_CATE char(6) [pk]
+  NOMBRE varchar(100)
+}
+
+Table PRODUCTO {
+  ID_PRODUCTO char(6) [pk]
+  DESCRIPCION varchar(100)
+  PRECIO_VENTA decimal(10,2)
+  STOCK_MINIMO int
+  STOCK_ACTUAL int
+  COD_CATE char(6) [ref: > CATEGORIAS.COD_CATE]
+  COD_SEDE char(6)
+}
+
+Table CARGOS {
+  COD_CARGO char(6) [pk]
+  NOMBRE_CARGO varchar(100)
+}
+
+Table EMPLEADO {
+  COD_EMPLE char(6) [pk]
+  NOMBRES varchar(100)
+  APELLIDOS varchar(100)
+  DNI_EMPLE char(8)
+  DIRECCION varchar(100)
+  ESTADO_CIVIL varchar(20)
+  NIVEL_EDUCA varchar(50)
+  TELEFONO char(9)
+  EMAIL varchar(50)
+  SUELDO_BASICO decimal(10,2)
+  FECHA_INGRESO date
+  COD_CARGO char(6) [ref: > CARGOS.COD_CARGO]
+  COD_SEDE char(6)
+}
+
+Table BOLETA {
+  NUM_BOLETA char(6) [pk]
+  FECHA_EMI date
+  ID_CLIENTE char(6) [ref: > CLIENTE.ID_CLIENTE]
+  COD_EMPLE char(6) [ref: > EMPLEADO.COD_EMPLE]
+  ESTADO_BOLETA varchar(20)
+  TOTAL decimal(10,2)
+}
+
+Table DETALLEBOLETA {
+  NUM_BOLETA char(6) [ref: > BOLETA.NUM_BOLETA]
+  ID_PRODUCTO char(6) [ref: > PRODUCTO.ID_PRODUCTO]
+  CANTIDAD int
+  IMPORTE decimal(10,2)
+  IGV decimal(5,2)
+  }
+
+
+Table SEDE {
+  COD_SEDE char(6) [pk]
+  NOMBRE varchar(100)
+  ID_DIRECCION char(6) [ref: > DIRECCION.ID_DIRECCION]
+}
